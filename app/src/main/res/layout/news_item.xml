@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ivThumbnail"
             tools:text="Ferroviária vence Palmeiras" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             tools:text="Meninas da Ferrinha derrotaram palmeiras no ultimo domingo." />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btOpenLink"
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
