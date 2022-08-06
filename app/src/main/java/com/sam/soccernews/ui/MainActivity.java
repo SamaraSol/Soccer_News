@@ -10,13 +10,14 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
 import com.sam.soccernews.R;
-import com.sam.soccernews.data.remote.local.AppDatabase;
+import com.sam.soccernews.data.local.AppDatabase;
 import com.sam.soccernews.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +32,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         this.setupDb();
-
     }
 
-        private void setupDb() {
+    private void setupDb() {
         db = Room.databaseBuilder(this, AppDatabase.class, "soccer-news")
                 .allowMainThreadQueries()
                 .build();
     }
-        public AppDatabase getDb() {
-            return db;
 
+    public AppDatabase getDb() {
+        return db;
     }
 }

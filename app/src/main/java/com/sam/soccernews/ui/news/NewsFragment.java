@@ -1,9 +1,5 @@
 package com.sam.soccernews.ui.news;
 
-import static com.sam.soccernews.ui.news.NewsViewModel.State.DOING;
-import static com.sam.soccernews.ui.news.NewsViewModel.State.DONE;
-import static com.sam.soccernews.ui.news.NewsViewModel.State.ERROR;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +18,6 @@ public class NewsFragment extends Fragment {
 
     private FragmentNewsBinding binding;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         NewsViewModel newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
@@ -31,10 +26,10 @@ public class NewsFragment extends Fragment {
 
         binding.rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
-            binding.rvNews.setAdapter(new NewsAdapter(news, updateNews -> {
+            binding.rvNews.setAdapter(new NewsAdapter(news, updatedNews -> {
                 MainActivity activity = (MainActivity) getActivity();
                 if (activity != null) {
-                    activity.getDb().NewsDao().save(updateNews);
+                    activity.getDb().newsDao().save(updatedNews);
                 }
             }));
         });
@@ -42,19 +37,25 @@ public class NewsFragment extends Fragment {
         newsViewModel.getState().observe(getViewLifecycleOwner(), state -> {
             switch (state) {
                 case DOING:
+                    //TODO: Iniciar SwipeRefreshLayout (loading).
                     break;
                 case DONE:
+                    //TODO: Finalizar SwipeRefreshLayout (loading).
                     break;
                 case ERROR:
-
+                    //TODO: Finalizar SwipeRefreshLayout (loading).
+                    //TODO: Mostrar um erro genérico.
             }
-
         });
+
         return root;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
+
 }

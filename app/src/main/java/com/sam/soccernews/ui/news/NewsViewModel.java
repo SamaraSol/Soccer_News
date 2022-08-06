@@ -18,17 +18,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NewsViewModel extends ViewModel {
 
     public enum State {
-        DOING, DONE, ERROR,
+        DOING, DONE, ERROR
     }
 
     private final MutableLiveData<List<News>> news = new MutableLiveData<>();
-    private final MutableLiveData<State> state = new MutableLiveData<State>();
+    private final MutableLiveData<State> state = new MutableLiveData<>();
     private final SoccerNewsApi api;
-
 
     public NewsViewModel() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://samarasol.github.io/Soccer-News-Api/")
+                .baseUrl("https://digitalinnovationone.github.io/soccer-news-api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(SoccerNewsApi.class);
@@ -39,8 +38,6 @@ public class NewsViewModel extends ViewModel {
     private void findNews() {
         state.setValue(State.DOING);
         api.getNews().enqueue(new Callback<List<News>>() {
-            private Call<List<News>> call;
-
             @Override
             public void onResponse(Call<List<News>> call, Response<List<News>> response) {
                 if (response.isSuccessful()) {

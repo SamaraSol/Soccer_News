@@ -1,5 +1,6 @@
 package com.sam.soccernews.ui.adapter;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,14 +19,13 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    private final FavoriteListener favoriteListener;
     private final List<News> news;
+    private final FavoriteListener favoriteListener;
 
     public NewsAdapter(List<News> news, FavoriteListener favoriteListener) {
         this.news = news;
         this.favoriteListener = favoriteListener;
     }
-
 
     @NonNull
     @Override
@@ -43,33 +43,29 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.binding.tvTitle.setText(news.title);
         holder.binding.tvDescription.setText(news.description);
         Picasso.get().load(news.image).fit().into(holder.binding.ivThumbnail);
-
-        //implementação da funcionalidade de "abrir link":
-
+        // Implementação da funcionalidade de "Abrir Link":
         holder.binding.btOpenLink.setOnClickListener(view -> {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(news.link));
             context.startActivity(i);
         });
-        //implementação da funcionalidade de "compartilhar":
+        // Implementação da funcionalidade de "Compartilhar":
         holder.binding.ivShare.setOnClickListener(view -> {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
-            i.putExtra(Intent.EXTRA_SUBJECT, news.title);
             i.putExtra(Intent.EXTRA_TEXT, news.link);
-            context.startActivity(Intent.createChooser(i, "Share via"));
+            context.startActivity(Intent.createChooser(i, "Share"));
         });
-        //implementação da funcionalidade de "favoritar":(o evennto sera instanciado pelo fragment)
+        // Implementação da funcionalidade de "Favoritar" (o evento será instanciado pelo Fragment):
         holder.binding.ivFavorite.setOnClickListener(view -> {
             news.favorite = !news.favorite;
             this.favoriteListener.onFavorite(news);
             notifyItemChanged(position);
         });
-
         int favoriteColor = news.favorite ? R.color.favorite_active : R.color.favorite_inactive;
         holder.binding.ivFavorite.setColorFilter(context.getResources().getColor(favoriteColor));
-
     }
+
     @Override
     public int getItemCount() {
         return this.news.size();
